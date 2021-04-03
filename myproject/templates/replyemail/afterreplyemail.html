@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Reply email {{msg}}{% endblock %}
+{% block body %}
+<h1>
+    Your reply {{msg}} goto reply email page
+    <form method="get" action="{% url 'replyemail' %}">
+        <input type="submit" value="OK">
+    </form>
+</h1>
+{% endblock %}

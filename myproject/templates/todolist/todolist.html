@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} ToDO list {% endblock %}
+{%block body %}
+
+    <h1>TO DO List</h1>
+    <form method="post" action="{% url 'todolist' %}">
+        {% csrf_token %}
+        <table cellpadding="15" cellspacing="5" style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>Title:</td>
+                <td>{{form.title}}</td>
+                <td><input type="submit" value="Send"></td>
+            </tr>
+            <tr><td colspan="3">************************************************</td></tr>
+        </table>
+    </form>
+
+    <form action="{% url 'todolist' %}">
+        {% csrf_token %}
+        <table cellpadding="5" cellspacing="15" style="margin-left: auto; margin-right: auto;">
+            <tr>
+                <td>Todo List</td>
+            </tr>
+
+            {% for value in query %}
+            <tr>
+                <td>{{value.title}}</td>
+                {% if value.complete is True %}
+                    <td style="background-color:#9dfd85">Complete</td>
+                    <td><button type="submit" formmethod="post" name="completeid" value="{{value.id}}">Uncomplete</button></td>
+                {% else %}
+                    <td style="background-color:#fc7d7d">Uncomplete</td> 
+                    <td><button type="submit" formmethod="post" name="completeid" value="{{value.id}}">Complete</button></td>
+                {% endif %}
+                <td><button type="submit" formmethod="post" name="deleteid" value="{{value.id}}">Delete</button></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}
